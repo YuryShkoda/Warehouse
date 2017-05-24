@@ -1,25 +1,16 @@
 //
-//  ItemsListController.swift
+//  SearchViewController.swift
 //  ParseStarterProject-Swift
 //
-//  Created by Yuri Shkoda on 4/24/17.
+//  Created by Yuri Shkoda on 5/23/17.
 //  Copyright © 2017 Parse. All rights reserved.
 //
 
 import UIKit
 import Parse
 
-//TODO: clean code
-//FIXME: deleting last item in the list
-//FIXME: hide "back" button at root list
+class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-class ItemsListController: UITableViewController {
-    
-    @IBAction func back(_ sender: Any) {
-    
-        changeMode(action: "backward", index: 1)
-        
-    }
     
     var list      = [String]()
     var ids       = [String]()
@@ -30,7 +21,7 @@ class ItemsListController: UITableViewController {
     var quantity  = String()
     var location  = String()
     var tableMode = "Model"
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,18 +34,18 @@ class ItemsListController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return list.count
         
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         changeMode(action: "forward", index: indexPath.row)
         
@@ -89,15 +80,15 @@ class ItemsListController: UITableViewController {
             if let items = objects {
                 
                 if self.list.count > 0 {
-                
+                    
                     self.list.removeAll()
                     
                     self.ids.removeAll()
-                
+                    
                 }
                 
                 if items.count > 1 {
-                
+                    
                     for item in items {
                         
                         if self.tableMode != "Result" {
@@ -144,27 +135,31 @@ class ItemsListController: UITableViewController {
                             
                         }
                     }
-                
+                    
                 } else {
-                
+                    
                     if items[0]["Quantity"] != nil { self.quantity = String(describing: items[0]["Quantity"]!) }
                     
                     if items[0]["Location"] != nil { self.location = String(describing: items[0]["Location"]!) }
                     
                     self.list.append(self.location + " = " + self.quantity)
-                
+                    
                 }
                 
-                self.tableView.reloadData()
+                //self.tableView.reloadData()
+                
+                let listView = self.view.viewWithTag(1) as! UITableView
+                
+                listView.reloadData()
                 
             }
         }
     }
     
     func changeMode(action: String, index: Int) {
-    
-        if action == "forward" {
         
+        if action == "forward" {
+            
             switch tableMode {
             case "Model":
                 tableMode = "Kind"
@@ -181,7 +176,7 @@ class ItemsListController: UITableViewController {
             default:
                 return
             }
-        
+            
         } else if action == "backward" {
             
             switch tableMode {
@@ -194,9 +189,9 @@ class ItemsListController: UITableViewController {
             default:
                 return
             }
-        
+            
         } else if action == "skip"{
-        
+            
             switch tableMode {
             case "Model":
                 tableMode = "Kind"
@@ -212,11 +207,11 @@ class ItemsListController: UITableViewController {
         }
         
         getItems()
-    
+        
     }
-
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
         cell.textLabel?.text = list[indexPath.row]
@@ -224,44 +219,44 @@ class ItemsListController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         
         if tableMode == "Model" {
-        
+            
             return true
-        
+            
         } else {
-        
+            
             return false
-        
+            
         }
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-        
+            
             let query = PFQuery(className: "Warehouse")
             
             query.getObjectInBackground(withId: ids[indexPath.row + 1], block: { (objects, error) in
                 
                 objects?.deleteInBackground(block: { (success, error) in
                     if success {
-                    
+                        
                         print("deleted")
                         
                         self.getItems()
-                    
+                        
                     } else {
-                    
+                        
                         print(error)
-                    
+                        
                     }
                 })
                 
                 
             })
-        
+            
         }
         
         if editingStyle == .insert {
@@ -269,6 +264,5 @@ class ItemsListController: UITableViewController {
             print("insert")
             
         }
-        
     }
 }
