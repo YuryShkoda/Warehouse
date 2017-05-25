@@ -9,10 +9,13 @@
 import UIKit
 import Parse
 
-class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
     
     var list      = [String]()
+    var filtered  = [String]()
     var ids       = [String]()
     var model     = String()
     var kind      = String()
@@ -21,15 +24,83 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var quantity  = String()
     var location  = String()
     var tableMode = "Model"
+    var searchIsActive = false
+    
+    @IBAction func serchCancelled(_ sender: Any) {
+        
+        searchIsActive = false
+        
+        view.endEditing(true)
+        
+        searchBar.text = ""
+        
+        tableMode = "Model"
+        
+        getItems()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         getItems()
         
+        let cancelButtonAttributes: NSDictionary = [NSForegroundColorAttributeName: UIColor.white]
+        
+        UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes as? [String : AnyObject], for: UIControlState.normal)
+        
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        tableMode = "Model"
+        
+        getItems()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        
+        searchIsActive = true
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        
+        searchIsActive = false
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+        searchIsActive = false
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        searchIsActive = false
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        filtered = list.filter({ (text) -> Bool in
+            
+            let tmp: NSString = text as NSString
+            
+            let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+            
+            return range.location != NSNotFound
+        })
+        
+        if filtered.count != 0 {
+        
+            searchIsActive = true
+        
+        } else {
+        
+            searchIsActive = false
+        }
+        
+        tableView.reloadData()
+        
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -41,14 +112,19 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return list.count
+        if searchIsActive {
         
+            return filtered.count
+            
+        } else {
+        
+            return list.count
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         changeMode(action: "forward", index: indexPath.row)
-        
     }
     
     func getItems(){
@@ -71,7 +147,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             query.whereKey("Size", equalTo: size)
             query.whereKey("Color", equalTo: color)
         default:
-            print("Yurec - krasava!")
+            break
         }
         
         
@@ -116,13 +192,11 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                                 if newItem {
                                     
                                     self.list.append(itemDesc)
-                                    
                                 }
                                 
                             } else {
                                 
                                 self.changeMode(action: "skip", index: 1)
-                                
                             }
                             
                         } else {
@@ -146,11 +220,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     
                 }
                 
-                //self.tableView.reloadData()
-                
-                let listView = self.view.viewWithTag(1) as! UITableView
-                
-                listView.reloadData()
+                self.tableView.reloadData()
                 
             }
         }
@@ -214,7 +284,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        cell.textLabel?.text = list[indexPath.row]
+        if searchIsActive {
+        
+            cell.textLabel?.text = filtered[indexPath.row]
+        
+        } else {
+        
+            cell.textLabel?.text = list[indexPath.row]
+        }
         
         return cell
     }

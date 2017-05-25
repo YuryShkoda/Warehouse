@@ -13,6 +13,7 @@
 		040E68081ED53C9E00A674FD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E68071ED53C9E00A674FD /* SearchViewController.swift */; };
 		045FCDF51ED52AD00087E1FD /* add_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 045FCDF41ED52AD00087E1FD /* add_button.png */; };
 		0491D9611ED2774700142776 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0491D9601ED2774700142776 /* MapKit.framework */; };
+		04D313D21ED683C700E4D8C1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D313D11ED683C700E4D8C1 /* LoginViewController.swift */; };
 		814C3ACA1B69877600E307BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 814C3AC61B69877600E307BB /* Main.storyboard */; };
 		814C3ACB1B69877600E307BB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 814C3AC81B69877600E307BB /* Images.xcassets */; };
 		81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BA814A1A49DA1800E65899 /* AppDelegate.swift */; };
@@ -32,6 +33,7 @@
 		040E68071ED53C9E00A674FD /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = ../SearchViewController.swift; sourceTree = "<group>"; };
 		045FCDF41ED52AD00087E1FD /* add_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_button.png; sourceTree = "<group>"; };
 		0491D9601ED2774700142776 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		04D313D11ED683C700E4D8C1 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = ../LoginViewController.swift; sourceTree = "<group>"; };
 		814C3AC71B69877600E307BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		814C3AC81B69877600E307BB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		814C3AC91B69877600E307BB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				81BA814C1A49DA1800E65899 /* ViewController.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
 				04005E551EAEEDDA003749AD /* ItemsListController.swift */,
+				04D313D11ED683C700E4D8C1 /* LoginViewController.swift */,
 			);
 			path = ParseStarterProject;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				040E68081ED53C9E00A674FD /* SearchViewController.swift in Sources */,
 				04005E561EAEEDDA003749AD /* ItemsListController.swift in Sources */,
 				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
+				04D313D21ED683C700E4D8C1 /* LoginViewController.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
