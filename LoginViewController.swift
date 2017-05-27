@@ -26,6 +26,8 @@ class LoginViewController: UIViewController {
         passwordTextField.layer.borderWidth = 0
         passwordSecondTextField.layer.borderWidth = 0
         
+        alertLabel.isHidden = true
+        
         if isLogin {
             
             isLogin = false
@@ -74,6 +76,13 @@ class LoginViewController: UIViewController {
                         self.performSegue(withIdentifier: "loginSegue", sender: self)
                     }
                 })
+            } else {
+
+                if nameTextField.text == "" { nameTextField.layer.borderWidth = 1 }
+                if passwordTextField.text == "" { passwordTextField.layer.borderWidth = 1 }
+                
+                alertLabel.isHidden = false
+                alertLabel.text = "All fields are requered"
             }
         
         } else {
@@ -115,7 +124,7 @@ class LoginViewController: UIViewController {
                 
                 } else{
                 
-                    alertLabel.text = "Please password is not equel"
+                    alertLabel.text = "Passwords are not equel"
                     alertLabel.isHidden = false
                     
                     passwordTextField.layer.borderWidth = 1
@@ -127,9 +136,9 @@ class LoginViewController: UIViewController {
                 alertLabel.text = "All fields are requered!"
                 alertLabel.isHidden = false
                 
-                if nameTextField.layer.borderWidth == 0 { nameTextField.layer.borderWidth = 1 }
-                if passwordTextField.layer.borderWidth == 0 { passwordTextField.layer.borderWidth = 1 }
-                if passwordSecondTextField.layer.borderWidth == 0 { passwordSecondTextField.layer.borderWidth = 1 }
+                if nameTextField.text == "" { nameTextField.layer.borderWidth = 1 }
+                if passwordTextField.text == "" { passwordTextField.layer.borderWidth = 1 }
+                if passwordSecondTextField.text == "" { passwordSecondTextField.layer.borderWidth = 1 }
             }
         }
     }
