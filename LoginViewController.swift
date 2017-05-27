@@ -105,7 +105,7 @@ class LoginViewController: UIViewController {
                         
                         if success {
                         
-                            self.performSegue(withIdentifier: "loginSegue", sender: self)
+                            self.performSegue(withIdentifier: "showSettingsSegue", sender: self)
                         
                         } else if error != nil {
                         
