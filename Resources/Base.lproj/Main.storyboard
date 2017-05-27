@@ -510,7 +510,7 @@
                                 <rect key="frame" x="103" y="389" width="117" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="or Create New"/>
+                                <state key="normal" title="or sign up"/>
                                 <connections>
                                     <action selector="switchModeButtonClicked:" destination="nn6-rs-LCe" eventType="touchUpInside" id="NzC-2x-NYV"/>
                                 </connections>
@@ -527,7 +527,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.29976263477911969" green="0.75534040410014669" blue="0.75686274509803919" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <state key="normal" title=" Login ">
+                                <state key="normal" title="Log in">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -537,15 +537,24 @@
                                     <action selector="loginCreateButtonClicked:" destination="nn6-rs-LCe" eventType="touchUpInside" id="yuG-vb-9Xu"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="All fields ae requered!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qdg-rl-xE7">
+                                <rect key="frame" x="16" y="274" width="288" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.17575833768182014" blue="0.2644833732671269" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="alertLabel" destination="qdg-rl-xE7" id="yex-KX-TpP"/>
                         <outlet property="loginCreateButton" destination="Gx2-WC-WIQ" id="k9E-QO-C2p"/>
                         <outlet property="nameTextField" destination="8Wk-QU-yVv" id="Ein-zU-T2O"/>
                         <outlet property="passwordSecondTextField" destination="HsB-XB-2yI" id="nim-Jt-y69"/>
                         <outlet property="passwordTextField" destination="prU-bF-sWu" id="TaE-Gl-dRg"/>
                         <outlet property="switchModeButton" destination="UD3-Z9-X6g" id="Dp8-du-53k"/>
+                        <segue destination="j2N-eE-HOY" kind="show" identifier="loginSegue" id="Ycm-Yn-jGh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q7t-PP-cRS" userLabel="First Responder" sceneMemberID="firstResponder"/>
