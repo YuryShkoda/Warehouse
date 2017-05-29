@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -98,7 +98,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         tableView.reloadData()
-        
     }
     
     
@@ -160,7 +159,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.list.removeAll()
                     
                     self.ids.removeAll()
-                    
                 }
                 
                 if items.count > 1 {
@@ -184,7 +182,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                                         if self.list[i] == itemDesc {
                                             
                                             newItem = false
-                                            
                                         }
                                     }
                                 }
@@ -206,7 +203,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                             if item["Location"] != nil { self.location = String(describing: item["Location"]!) }
                             
                             self.list.append(self.location + " = " + self.quantity)
-                            
                         }
                     }
                     
@@ -217,11 +213,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     if items[0]["Location"] != nil { self.location = String(describing: items[0]["Location"]!) }
                     
                     self.list.append(self.location + " = " + self.quantity)
-                    
                 }
                 
                 self.tableView.reloadData()
-                
             }
         }
     }
@@ -305,7 +299,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         } else {
             
             return false
-            
         }
     }
     
@@ -327,19 +320,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     } else {
                         
                         print(error)
-                        
                     }
                 })
-                
-                
             })
-            
-        }
-        
-        if editingStyle == .insert {
-            
-            print("insert")
-            
         }
     }
 }

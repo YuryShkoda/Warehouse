@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class LoginViewController: UIViewController {
+class LoginVC: UIViewController {
     
     var isLogin = true
 
