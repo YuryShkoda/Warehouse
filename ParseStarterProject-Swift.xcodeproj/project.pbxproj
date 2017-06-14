@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04005E561EAEEDDA003749AD /* ItemsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04005E551EAEEDDA003749AD /* ItemsListController.swift */; };
 		040E68011ED52DBC00A674FD /* gear_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 040E67FF1ED52DBC00A674FD /* gear_button.png */; };
 		040E68021ED52DBC00A674FD /* search_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 040E68001ED52DBC00A674FD /* search_button.png */; };
 		040E68081ED53C9E00A674FD /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E68071ED53C9E00A674FD /* SearchVC.swift */; };
 		045FCDF51ED52AD00087E1FD /* add_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 045FCDF41ED52AD00087E1FD /* add_button.png */; };
 		04756AB31ED9F36C00D8E51A /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04756AB21ED9F36C00D8E51A /* SettingsVC.swift */; };
-		04756AB91EDA37F800D8E51A /* ChangeNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04756AB81EDA37F800D8E51A /* ChangeNameVC.swift */; };
 		04756ABB1EDA4FEA00D8E51A /* lock_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 04756ABA1EDA4FEA00D8E51A /* lock_icon.png */; };
-		04756ABD1EDA509600D8E51A /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04756ABC1EDA509600D8E51A /* ChangePasswordVC.swift */; };
+		047A51981EF1B2EA0020DA1B /* FieldVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A51971EF1B2EA0020DA1B /* FieldVC.swift */; };
+		04813B281EDE11B500683AE1 /* WarehouseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04813B271EDE11B500683AE1 /* WarehouseData.swift */; };
+		048B05541EEBBA8C00D07397 /* ChangeSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B05531EEBBA8C00D07397 /* ChangeSettingsVC.swift */; };
 		0491D9611ED2774700142776 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0491D9601ED2774700142776 /* MapKit.framework */; };
 		04D313D21ED683C700E4D8C1 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D313D11ED683C700E4D8C1 /* LoginVC.swift */; };
 		814C3ACA1B69877600E307BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 814C3AC61B69877600E307BB /* Main.storyboard */; };
@@ -31,15 +31,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		04005E551EAEEDDA003749AD /* ItemsListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsListController.swift; sourceTree = "<group>"; };
 		040E67FF1ED52DBC00A674FD /* gear_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear_button.png; sourceTree = "<group>"; };
 		040E68001ED52DBC00A674FD /* search_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_button.png; sourceTree = "<group>"; };
 		040E68071ED53C9E00A674FD /* SearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchVC.swift; path = ../SearchVC.swift; sourceTree = "<group>"; };
 		045FCDF41ED52AD00087E1FD /* add_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_button.png; sourceTree = "<group>"; };
 		04756AB21ED9F36C00D8E51A /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
-		04756AB81EDA37F800D8E51A /* ChangeNameVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChangeNameVC.swift; path = ../ChangeNameVC.swift; sourceTree = "<group>"; };
 		04756ABA1EDA4FEA00D8E51A /* lock_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock_icon.png; sourceTree = "<group>"; };
-		04756ABC1EDA509600D8E51A /* ChangePasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChangePasswordVC.swift; path = ../ChangePasswordVC.swift; sourceTree = "<group>"; };
+		047A51971EF1B2EA0020DA1B /* FieldVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldVC.swift; sourceTree = "<group>"; };
+		04813B271EDE11B500683AE1 /* WarehouseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WarehouseData.swift; path = Model/WarehouseData.swift; sourceTree = "<group>"; };
+		048B05531EEBBA8C00D07397 /* ChangeSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeSettingsVC.swift; sourceTree = "<group>"; };
 		0491D9601ED2774700142776 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		04D313D11ED683C700E4D8C1 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = ../LoginVC.swift; sourceTree = "<group>"; };
 		814C3AC71B69877600E307BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -88,6 +88,14 @@
 			path = ParseStarterProject;
 			sourceTree = "<group>";
 		};
+		048570C11EDE159F00DCD202 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				04813B271EDE11B500683AE1 /* WarehouseData.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		814C3AC51B69877600E307BB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,14 +127,14 @@
 		81BA81471A49DA1800E65899 /* ParseStarterProject */ = {
 			isa = PBXGroup;
 			children = (
+				048570C11EDE159F00DCD202 /* Model */,
 				040E68071ED53C9E00A674FD /* SearchVC.swift */,
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				81BA814C1A49DA1800E65899 /* ViewController.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
+				047A51971EF1B2EA0020DA1B /* FieldVC.swift */,
 				04756AB21ED9F36C00D8E51A /* SettingsVC.swift */,
-				04756AB81EDA37F800D8E51A /* ChangeNameVC.swift */,
-				04756ABC1EDA509600D8E51A /* ChangePasswordVC.swift */,
-				04005E551EAEEDDA003749AD /* ItemsListController.swift */,
+				048B05531EEBBA8C00D07397 /* ChangeSettingsVC.swift */,
 				04D313D11ED683C700E4D8C1 /* LoginVC.swift */,
 			);
 			path = ParseStarterProject;
@@ -244,13 +252,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				040E68081ED53C9E00A674FD /* SearchVC.swift in Sources */,
-				04756ABD1EDA509600D8E51A /* ChangePasswordVC.swift in Sources */,
-				04005E561EAEEDDA003749AD /* ItemsListController.swift in Sources */,
+				04813B281EDE11B500683AE1 /* WarehouseData.swift in Sources */,
+				047A51981EF1B2EA0020DA1B /* FieldVC.swift in Sources */,
 				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
 				04D313D21ED683C700E4D8C1 /* LoginVC.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
 				04756AB31ED9F36C00D8E51A /* SettingsVC.swift in Sources */,
-				04756AB91EDA37F800D8E51A /* ChangeNameVC.swift in Sources */,
+				048B05541EEBBA8C00D07397 /* ChangeSettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,10 +370,12 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.warehouse1244151;
+				PRODUCT_BUNDLE_IDENTIFIER = com.warehouse;
 				PRODUCT_NAME = "ParseStarterProject-Swift";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -380,11 +390,13 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.warehouse1244151;
+				PRODUCT_BUNDLE_IDENTIFIER = com.warehouse;
 				PRODUCT_NAME = "ParseStarterProject-Swift";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

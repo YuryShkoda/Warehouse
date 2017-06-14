@@ -58,8 +58,12 @@ class LoginVC: UIViewController {
             
                 PFUser.logInWithUsername(inBackground: nameTextField.text!, password: passwordTextField.text!, block: { (user, error) in
                     
-                    if error != nil {
+                    if user != nil {
                         
+                        self.performSegue(withIdentifier: "loginSegue", sender: self)
+                        
+                    } else {
+                    
                         let error = error as NSError?
                         
                         var displayErrorMessage = ""
@@ -70,10 +74,6 @@ class LoginVC: UIViewController {
                         }
                         
                         self.createAlert(title: "Connection Error", message: displayErrorMessage)
-                        
-                    } else {
-                    
-                        self.performSegue(withIdentifier: "loginSegue", sender: self)
                     }
                 })
             } else {

@@ -221,6 +221,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         self.kindsPicker.delegate   = self
         self.kindsPicker.dataSource = self
         
