@@ -25,20 +25,21 @@ class ChangeSettingsVC: UIViewController {
     var curPass = ""
     var newPass = ""
 
+    
     @IBOutlet weak var textField: UITextField!
-    @IBAction func saveButtonClicked(_ sender: Any) {
-        
+    
+    @IBAction func saveField(_ sender: Any) {
         var readyForSegue = true
         
         curPass = ""
         newPass = ""
         
         var i = 0
-            
+        
         for subView in self.view.subviews as [UIView] {
             
             if let tf = subView as? UITextField {
-                    
+                
                 if tf.isEnabled && tf.text == "" {
                     
                     tf.layer.borderWidth = 1
@@ -48,13 +49,13 @@ class ChangeSettingsVC: UIViewController {
                 } else if tf.isSecureTextEntry {
                     
                     if newPass != tf.text && newPass != "" && i > 0 {
-                    
+                        
                         tf.layer.borderWidth = 1
                         tf.layer.borderColor = UIColor.red.cgColor
                         readyForSegue = false
-                    
+                        
                     } else {
-                    
+                        
                         if i == 0 { curPass = tf.text! } else { newPass = tf.text! }
                     }
                     
@@ -94,7 +95,7 @@ class ChangeSettingsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         prepareTextFields()
     }
     
@@ -117,6 +118,14 @@ class ChangeSettingsVC: UIViewController {
                 textField.isSecureTextEntry = self.isSecureEntry
                 textField.isEnabled = isFirstFieldAnabled
             }
+        }
+    }
+    
+    override func willMove(toParentViewController parent: UIViewController?){
+        super.willMove(toParentViewController: parent)
+        if parent == nil {
+            self.tabBarController?.tabBar.isHidden = false
+            self.tabBarController?.tabBar.backgroundColor = UIColor.red
         }
     }
 

@@ -9,6 +9,8 @@
 import UIKit
 import Parse
 
+//TODO: serch has to work with new/empty fields in item description
+
 class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!

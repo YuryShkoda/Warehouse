@@ -28,6 +28,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var newField: String = ""
     
     var manageField: String = ""
+    var fieldToSave: [String: [String]] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +52,11 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             warehouse.changePassword(currentPassword: curPass, newPassword: newPass)
             curPass = ""
             newPass = ""
+            
+        } else if fieldToSave.count != 0 {
+            
+            warehouse.saveField(field: fieldToSave)
+            fieldToSave = [:]
         }
     }
     
@@ -58,6 +64,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         warehouse.getSettings(refresh: true)
     }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "changeSettingSegue" {

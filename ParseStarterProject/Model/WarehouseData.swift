@@ -18,7 +18,7 @@ class WarehouseData {
     var settings: [[[String]]] = []
     var settingsPlaceHolders: [[[String]]] = []
     var settingsFields: [String: [String]] = [:]
-//    {"Field":["1","2"]}
+    var fieldToSave: [String: [String]] = [:]
     
     init(){
         
@@ -124,6 +124,43 @@ class WarehouseData {
                             print("Settings saved!")
                         } else {
                             print("Error")
+                        }
+                    })
+                }
+            }
+        }
+    }
+    
+    func saveField(field: [String: [String]]){
+        
+        self.fieldToSave = field
+    
+        let query = PFQuery(className: "Settings")
+        query.whereKey("Warehouse", equalTo: self.name)
+        query.findObjectsInBackground { (objects, error) in
+            
+            if let objects = objects {
+            
+                if objects.count > 0 {
+                
+                    let warehouseSettings = objects[0]
+                    
+                    var fields = warehouseSettings["SettingsFields"] as! [String: [String]]
+                    
+                    print("Before \(fields)")
+                    
+                    for key in field.keys {
+                        print(key)
+                        print(field[key])
+                        fields[key] = field[key]
+                    }
+                    print("Before \(fields)")
+                    warehouseSettings["SettingsFields"] = fields
+                    warehouseSettings.saveInBackground(block: { (success, error) in
+                        if success {
+                            print("Field saved")
+                        } else {
+                            print("error")
                         }
                     })
                 }
