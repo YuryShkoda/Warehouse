@@ -7,24 +7,27 @@
 //
 
 import UIKit
+import CoreData
 import Parse
 
-class LoginVC: UIViewController {
+class LoginVC: UIViewController, UITextFieldDelegate {
     
-    var isLogin = true
-
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var passwordSecondTextField: UITextField!
+    var isLogin: Bool = true
+    
+    @IBOutlet weak var accountNameTF: UITextField!
+    @IBOutlet weak var warehouseNameTF: UITextField!
+    @IBOutlet weak var passwordTF: UITextField!
+    @IBOutlet weak var secondPasswordTF: UITextField!
     @IBOutlet weak var loginCreateButton: UIButton!
     @IBOutlet weak var switchModeButton: UIButton!
     @IBOutlet weak var alertLabel: UILabel!
     
     @IBAction func switchModeButtonClicked(_ sender: Any) {
         
-        nameTextField.layer.borderWidth = 0
-        passwordTextField.layer.borderWidth = 0
-        passwordSecondTextField.layer.borderWidth = 0
+        accountNameTF.layer.borderWidth = 0
+        warehouseNameTF.layer.borderWidth = 0
+        passwordTF.layer.borderWidth = 0
+        secondPasswordTF.layer.borderWidth = 0
         
         alertLabel.isHidden = true
         
@@ -32,129 +35,216 @@ class LoginVC: UIViewController {
             
             isLogin = false
             
-            passwordSecondTextField.isHidden = false
+            secondPasswordTF.isHidden = false
             
-            loginCreateButton.setTitle("Sign up", for: .normal)
+            loginCreateButton.setTitle("Sign up", for: [])
             
-            switchModeButton.setTitle("or log in", for: .normal)
+            switchModeButton.setTitle("or log in", for: [])
             
         } else {
             
             isLogin = true
             
-            passwordSecondTextField.isHidden = true
+            secondPasswordTF.isHidden = true
             
-            loginCreateButton.setTitle("Log in", for: .normal)
+            loginCreateButton.setTitle("Log in", for: [])
             
-            switchModeButton.setTitle("or sign up", for: .normal)
+            switchModeButton.setTitle("or sign up", for: [])
         }
     }
     
     @IBAction func loginCreateButtonClicked(_ sender: Any) {
         
-        if isLogin {
+        var readyForSegue = true
+        var pass = ""
+        
+        for subView in self.view.subviews as [UIView] {
             
-            if nameTextField.text != "" && passwordTextField.text != "" {
-            
-                PFUser.logInWithUsername(inBackground: nameTextField.text!, password: passwordTextField.text!, block: { (user, error) in
-                    
-                    if user != nil {
-                        
-                        self.performSegue(withIdentifier: "loginSegue", sender: self)
-                        
-                    } else {
-                    
-                        let error = error as NSError?
-                        
-                        var displayErrorMessage = ""
-                        
-                        if let errorMessage = error?.userInfo["error"] as? String {
-                            
-                            displayErrorMessage = errorMessage
-                        }
-                        
-                        self.createAlert(title: "Connection Error", message: displayErrorMessage)
+            if let textField = subView as? UITextField {
+                
+                if textField.text == "" && textField.isHidden == false {
+                    textField.layer.borderWidth = 1
+                    readyForSegue = false
+                } else if textField.isSecureTextEntry && textField.isHidden == false {
+                    if pass == "" {
+                        pass = textField.text!
+                    } else if textField.text != pass {
+                        alertLabel.text = "Passwords are not equel"
+                        alertLabel.isHidden = false
+                        readyForSegue = false
                     }
-                })
-            } else {
-
-                if nameTextField.text == "" { nameTextField.layer.borderWidth = 1 }
-                if passwordTextField.text == "" { passwordTextField.layer.borderWidth = 1 }
-                
-                alertLabel.isHidden = false
-                alertLabel.text = "All fields are requered"
+                }
             }
+        }
         
-        } else {
-        
-            if nameTextField.text != "" && passwordTextField.text != "" && passwordSecondTextField.text != "" {
+        if readyForSegue {
+            
+            
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            
+            if isLogin {
                 
-                if passwordTextField.text == passwordSecondTextField.text{
-                    
-                    let user = PFUser()
-                    
-                    user.username = nameTextField.text!
-                    user.password = passwordTextField.text!
-                    
-                    let acl = PFACL()
-                    
-                    acl.getPublicReadAccess = true
-                    acl.getPublicWriteAccess = true
-                    
-                    user.signUpInBackground(block: { (success, error) in
-                        
-                        if success {
-                        
-                            self.performSegue(withIdentifier: "showSettingsSegue", sender: self)
-                        
-                        } else if error != nil {
-                        
-                            let error = error as NSError?
-                            
-                            var displayErrorMessage = ""
-                            
-                            if let errorMessage = error?.userInfo["error"] as? String {
-                                
-                                displayErrorMessage = errorMessage
+                let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Users")
+                request.returnsObjectsAsFaults = false
+                //TODO: also need to check password
+                request.predicate = NSPredicate(format: "name = %@ AND password = %@", accountNameTF.text!, passwordTF.text!)
+                
+                do {
+                    let results = try context.fetch(request)
+                    if results.count > 0 {
+                        for result in results as! [NSManagedObject]{
+                            if let name = result.value(forKey: "name") as? String {
+                                print("\(name) logged in")
+                                self.performSegue(withIdentifier: "showSettingsSegue", sender: self)
                             }
-                            
-                            self.createAlert(title: "Error in a form", message: displayErrorMessage)
                         }
-                    })
-                
-                } else{
-                
-                    alertLabel.text = "Passwords are not equel"
-                    alertLabel.isHidden = false
+                    } else {
+                        
+                        alertLabel.text = "User not found, please try again"
+                        alertLabel.isHidden = false
+                    }
                     
-                    passwordTextField.layer.borderWidth = 1
-                    passwordSecondTextField.layer.borderWidth = 1
+                } catch  {
+                    print("Error while fetching users")
                 }
                 
             } else {
                 
-                alertLabel.text = "All fields are requered!"
-                alertLabel.isHidden = false
+                if let accountName = accountNameTF.text, let password = passwordTF.text, let warehouseName = warehouseNameTF.text {
                 
-                if nameTextField.text == "" { nameTextField.layer.borderWidth = 1 }
-                if passwordTextField.text == "" { passwordTextField.layer.borderWidth = 1 }
-                if passwordSecondTextField.text == "" { passwordSecondTextField.layer.borderWidth = 1 }
+                    
+                    let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Users")
+                    request.returnsObjectsAsFaults = false
+                    
+                    request.predicate = NSPredicate(format: "name = %@ AND warehouseName = %@", [accountName, warehouseName])
+                    
+                    
+                    do {
+                        let results = try context.fetch(request)
+                        if results.count > 0 {
+                            for result in results as! [NSManagedObject] {
+                                
+                                if let name = result.value(forKey: "name") as? String {
+                                    self.alertLabel.text = "User \(name) already exists in \(warehouseName)"
+                                    self.alertLabel.isHidden = false
+                                }
+                            }
+                            
+                        } else {
+                            
+                            let newUser = NSEntityDescription.insertNewObject(forEntityName: "Users", into: context)
+                            
+                            newUser.setValue(accountName, forKey: "name")
+                            newUser.setValue(warehouseName, forKey: "warehouseName")
+                            newUser.setValue(password, forKey: "password")
+                            
+                            do {
+                                try context.save()
+                                
+                                let query = PFQuery(className: "iWarehouse_settings")
+                                
+                                query.whereKey("WarehouseName", equalTo: "iWarehouse_defaults")
+                                
+                                query.findObjectsInBackground(block: { (objects, error) in
+                                    
+                                    if objects != nil {
+                                    
+                                        if let objects = objects {
+                                            
+                                            if objects.count > 0 {
+                                                
+                                                for defaultSettings in objects {
+                                                    
+                                                    let placeholders = defaultSettings["Placeholders"]
+                                                    let settingsFields = defaultSettings["Settings"]
+                                                    let settingsToSave = NSEntityDescription.insertNewObject(forEntityName: "Settings", into: context)
+                                                    
+                                                    settingsToSave.setValue(placeholders, forKey: "placeholders")
+                                                    settingsToSave.setValue(settingsFields, forKey: "settingsFields")
+                                                    settingsToSave.setValue(warehouseName, forKey: "warehouseName")
+                                                    
+                                                    let propertyToSave = NSEntityDescription.insertNewObject(forEntityName: "Properties", into: context)
+                                                    
+                                                    propertyToSave.setValue("Location", forKey: "property")
+                                                    propertyToSave.setValue([], forKey: "defaults")
+                                                    propertyToSave.setValue(accountName, forKey: "warehouseName")
+                                                    
+                                                    let item = PFObject(className: "iWarehouse_settings")
+                                                    
+                                                    item["Placeholders"] = placeholders
+                                                    item["Settings"] = settingsFields
+                                                    item["WarehouseName"] = warehouseName
+                                                    item["Properties"] = ["Location": []]
+                                                    
+                                                    
+                                                    let acl = PFACL()
+                                                    
+                                                    acl.getPublicReadAccess = true
+                                                    acl.getPublicWriteAccess = true
+                                                    item.acl = acl
+                                                    
+                                                    item.saveInBackground(block: { (success, error) in
+                                                    
+                                                        if success {
+                                                            do {
+                                                                try context.save()
+                                                                print("default settings saved")
+                                                            } catch {
+                                                                print("error while saving default settings to CoreData")
+                                                            }
+                                                        } else {
+                                                            print("error while saving default settings to Parse")
+                                                        }
+                                                    })
+                                                }
+                                            }
+                                        }
+                                    }
+                                })
+                            } catch {
+                                //TODO: add error catching
+                            }
+                        }
+                    } catch {
+                        //TODO: add error catching
+                    }
+                }
+            }
+        } else {
+            if alertLabel.isHidden {
+                alertLabel.text = "all fields are requered!"
+                alertLabel.isHidden = false
             }
         }
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        nameTextField.layer.borderColor = UIColor.red.cgColor
-        passwordTextField.layer.borderColor = UIColor.red.cgColor
-        passwordSecondTextField.layer.borderColor = UIColor.red.cgColor
+        
+        for subView in self.view.subviews as [UIView] {
+            if let tf = subView as? UITextField {
+                tf.delegate = self
+            }
+        }
+        
+        accountNameTF.layer.borderColor = UIColor.red.cgColor
+        warehouseNameTF.layer.borderColor = UIColor.red.cgColor
+        passwordTF.layer.borderColor = UIColor.red.cgColor
+        secondPasswordTF.layer.borderColor = UIColor.red.cgColor
         
         if isLogin {
         
-            passwordSecondTextField.isHidden = true
+            secondPasswordTF.isHidden = true
             alertLabel.isHidden = true
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 
     override func didReceiveMemoryWarning() {

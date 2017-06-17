@@ -8,6 +8,7 @@
 */
 
 import UIKit
+import CoreData
 import Parse
 
 //TODO: add saving states of pickers
@@ -221,7 +222,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         self.kindsPicker.delegate   = self
         self.kindsPicker.dataSource = self
         
@@ -244,7 +244,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
         self.colorTextField.delegate    = self
         self.quantityTextField.delegate = self
         self.locationTextField.delegate = self
-        
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

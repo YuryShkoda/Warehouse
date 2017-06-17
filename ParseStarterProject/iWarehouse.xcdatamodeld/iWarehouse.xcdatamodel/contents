@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="15F34" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Properties" representedClassName="Properties" syncable="YES" codeGenerationType="class">
+        <attribute name="defaults" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="property" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="warehouseName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Settings" representedClassName="Settings" syncable="YES" codeGenerationType="class">
+        <attribute name="placeholders" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="settingsFields" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="warehouseName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Users" representedClassName="Users" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="warehouseName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Warehouse" representedClassName="Warehouse" syncable="YES" codeGenerationType="class"/>
+    <elements>
+        <element name="Properties" positionX="232" positionY="-0" width="128" height="90"/>
+        <element name="Settings" positionX="126" positionY="108" width="128" height="88"/>
+        <element name="Users" positionX="70" positionY="-171" width="128" height="90"/>
+        <element name="Warehouse" positionX="-36" positionY="0" width="128" height="45"/>
+    </elements>
+</model>
