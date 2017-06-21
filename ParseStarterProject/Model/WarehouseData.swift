@@ -112,12 +112,8 @@ class WarehouseData {
                     if results.count > 0 {
                         for result in results as! [NSManagedObject] {
                             let setFields =  result.value(forKey: "defaults") as! [String]
-                            print(setFields)
-                            //if self.settingsFields.count > 0 {
-                                let property = result.value(forKey: "property") as! String
-                            print(property)
-                                self.settingsFields[property] = setFields
-                            self.settings[1][1].insert(property, at: 0)
+                            let property = result.value(forKey: "property") as! String
+                            self.settingsFields[property] = setFields
                         }
                     }
                 } catch {

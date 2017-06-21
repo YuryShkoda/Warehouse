@@ -168,108 +168,137 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                             
                         } else {
                             
-                            let user = PFUser()
+                            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Settings")
+                            request.returnsObjectsAsFaults = false
+                            request.predicate = NSPredicate(format: "warehouseName = %@", warehouseName)
                             
-                            user.username = accountName
-                            user.password = password
-                            
-                            let acl = PFACL()
-                            
-                            acl.getPublicReadAccess = true
-                            acl.getPublicWriteAccess = true
-                            
-                            user.signUpInBackground(block: { (success, error) in
-                                
-                                if error != nil {
-                                    let error = error as NSError?
+                            do {
+                                let results = try context.fetch(request)
+                                if results.count > 0 {
                                     
-                                    var displayErrorMessage = ""
+                                    let newUser = NSEntityDescription.insertNewObject(forEntityName: "Users", into: context)
                                     
-                                    if let errorMessage = error?.userInfo["error"] as? String {
-                                        
-                                        displayErrorMessage = errorMessage
+                                    newUser.setValue(accountName, forKey: "name")
+                                    newUser.setValue(warehouseName, forKey: "warehouseName")
+                                    newUser.setValue(password, forKey: "password")
+                                    newUser.setValue(true, forKey: "isLoggedIn")
+                                    
+                                    do {
+                                        try context.save()
+                                        print("new user saved")
+                                        self.isFirstLoad = true
+                                        self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                                    } catch {
+                                        print("error while creating new user")
                                     }
-                                    
-                                    self.createAlert(title: "Error in a form", message: displayErrorMessage)
-                                    
+                                
                                 } else {
                                     
-                                    let query = PFQuery(className: "iWarehouse_settings")
+                                    let user = PFUser()
                                     
-                                    query.whereKey("WarehouseName", equalTo: "iWarehouse_defaults")
+                                    user.username = accountName
+                                    user.password = password
                                     
-                                    query.findObjectsInBackground(block: { (objects, error) in
+                                    let acl = PFACL()
+                                    
+                                    acl.getPublicReadAccess = true
+                                    acl.getPublicWriteAccess = true
+                                    
+                                    user.signUpInBackground(block: { (success, error) in
                                         
-                                        if objects != nil {
+                                        if error != nil {
+                                            let error = error as NSError?
                                             
-                                            if let objects = objects {
+                                            var displayErrorMessage = ""
+                                            
+                                            if let errorMessage = error?.userInfo["error"] as? String {
                                                 
-                                                if objects.count > 0 {
+                                                displayErrorMessage = errorMessage
+                                            }
+                                            
+                                            self.createAlert(title: "Error in a form", message: displayErrorMessage)
+                                            
+                                        } else {
+                                            
+                                            let query = PFQuery(className: "iWarehouse_settings")
+                                            
+                                            query.whereKey("WarehouseName", equalTo: "iWarehouse_defaults")
+                                            
+                                            query.findObjectsInBackground(block: { (objects, error) in
+                                                
+                                                if objects != nil {
                                                     
-                                                    for defaultSettings in objects {
+                                                    if let objects = objects {
                                                         
-                                                        let placeholders = defaultSettings["Placeholders"]
-                                                        let settingsFields = defaultSettings["Settings"]
-                                                        let settingsToSave = NSEntityDescription.insertNewObject(forEntityName: "Settings", into: context)
-                                                        
-                                                        settingsToSave.setValue(placeholders, forKey: "placeholders")
-                                                        settingsToSave.setValue(settingsFields, forKey: "settingsFields")
-                                                        settingsToSave.setValue(warehouseName, forKey: "warehouseName")
-                                                        
-                                                        let propertyToSave = NSEntityDescription.insertNewObject(forEntityName: "Properties", into: context)
-                                                        
-                                                        propertyToSave.setValue("Location", forKey: "property")
-                                                        propertyToSave.setValue([], forKey: "defaults")
-                                                        propertyToSave.setValue(accountName, forKey: "warehouseName")
-                                                        
-                                                        let item = PFObject(className: "iWarehouse_settings")
-                                                        
-                                                        item["Placeholders"] = placeholders
-                                                        item["Settings"] = settingsFields
-                                                        item["WarehouseName"] = warehouseName
-                                                        item["Properties"] = ["Location": []]
-                                                        
-                                                        
-                                                        let acl = PFACL()
-                                                        
-                                                        acl.getPublicReadAccess = true
-                                                        acl.getPublicWriteAccess = true
-                                                        item.acl = acl
-                                                        
-                                                        item.saveInBackground(block: { (success, error) in
+                                                        if objects.count > 0 {
                                                             
-                                                            if success {
+                                                            for defaultSettings in objects {
                                                                 
-                                                                let newUser = NSEntityDescription.insertNewObject(forEntityName: "Users", into: context)
+                                                                let placeholders = defaultSettings["Placeholders"]
+                                                                let settingsFields = defaultSettings["Settings"]
+                                                                let settingsToSave = NSEntityDescription.insertNewObject(forEntityName: "Settings", into: context)
                                                                 
-                                                                newUser.setValue(accountName, forKey: "name")
-                                                                newUser.setValue(warehouseName, forKey: "warehouseName")
-                                                                newUser.setValue(password, forKey: "password")
-                                                                newUser.setValue(true, forKey: "isLoggedIn")
+                                                                settingsToSave.setValue(placeholders, forKey: "placeholders")
+                                                                settingsToSave.setValue(settingsFields, forKey: "settingsFields")
+                                                                settingsToSave.setValue(warehouseName, forKey: "warehouseName")
                                                                 
-                                                                do {
-                                                                    try context.save()
-                                                                    print("default settings saved")
+                                                                let propertyToSave = NSEntityDescription.insertNewObject(forEntityName: "Properties", into: context)
+                                                                
+                                                                propertyToSave.setValue("Location", forKey: "property")
+                                                                propertyToSave.setValue([], forKey: "defaults")
+                                                                propertyToSave.setValue(accountName, forKey: "warehouseName")
+                                                                
+                                                                let item = PFObject(className: "iWarehouse_settings")
+                                                                
+                                                                item["Placeholders"] = placeholders
+                                                                item["Settings"] = settingsFields
+                                                                item["WarehouseName"] = warehouseName
+                                                                item["Properties"] = ["Location": []]
+                                                                
+                                                                
+                                                                let acl = PFACL()
+                                                                
+                                                                acl.getPublicReadAccess = true
+                                                                acl.getPublicWriteAccess = true
+                                                                item.acl = acl
+                                                                
+                                                                item.saveInBackground(block: { (success, error) in
                                                                     
-//                                                                    self.performSegue(withIdentifier: "showSettingsSegue", sender: self)
-//                                                                    warehouse.isFirstLoad = true
-                                                                    self.isFirstLoad = true
-                                                                    self.performSegue(withIdentifier: "loginSegue", sender: nil)
-                                                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "firstLoad"), object: nil)
-                                                                } catch {
-                                                                    print("error while saving default settings to CoreData")
-                                                                }
-                                                            } else {
-                                                                print("error while saving default settings to Parse")
+                                                                    if success {
+                                                                        
+                                                                        let newUser = NSEntityDescription.insertNewObject(forEntityName: "Users", into: context)
+                                                                        
+                                                                        newUser.setValue(accountName, forKey: "name")
+                                                                        newUser.setValue(warehouseName, forKey: "warehouseName")
+                                                                        newUser.setValue(password, forKey: "password")
+                                                                        newUser.setValue(true, forKey: "isLoggedIn")
+                                                                        
+                                                                        do {
+                                                                            try context.save()
+                                                                            print("default settings saved")
+                                                                            self.isFirstLoad = true
+                                                                            self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                                                                        } catch {
+                                                                            print("error while saving default settings to CoreData")
+                                                                        }
+                                                                    } else {
+                                                                        print("error while saving default settings to Parse")
+                                                                    }
+                                                                })
                                                             }
-                                                        })
+                                                        }
                                                     }
                                                 }
-                                            }
+                                            })
                                         }
                                     })
+                                    
                                 }
-                            })
+                            } catch {
+                                print("errror while finding settings for warehouse")
+                            }
+                            
+                            
                         }
                     } catch {
                         //TODO: add error catching
