@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChangeSettingsVC: UIViewController {
+class ChangeSettingsVC: UIViewController, UITextFieldDelegate {
     
     var settingToChange: [Int] = []
     
@@ -110,6 +110,7 @@ class ChangeSettingsVC: UIViewController {
                 tf.font = UIFont(name: (textField.font?.fontName)!, size: (textField.font?.pointSize)!)
                 tf.placeholder = placeHolders[i]
                 tf.isSecureTextEntry = self.isSecureEntry
+                tf.delegate = self
                 self.view.addSubview(tf)
                 
             } else {
@@ -117,17 +118,23 @@ class ChangeSettingsVC: UIViewController {
                 textField.placeholder = placeHolders[i]
                 textField.isSecureTextEntry = self.isSecureEntry
                 textField.isEnabled = isFirstFieldAnabled
+                textField.delegate = self
             }
         }
     }
     
-    override func willMove(toParentViewController parent: UIViewController?){
-        super.willMove(toParentViewController: parent)
-        if parent == nil {
-            self.tabBarController?.tabBar.isHidden = false
-            self.tabBarController?.tabBar.backgroundColor = UIColor.red
-        }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
+    
+//    override func willMove(toParentViewController parent: UIViewController?){
+//        super.willMove(toParentViewController: parent)
+//        if parent == nil {
+//            self.tabBarController?.tabBar.isHidden = false
+//            self.tabBarController?.tabBar.backgroundColor = UIColor.red
+//        }
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

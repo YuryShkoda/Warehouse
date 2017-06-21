@@ -62,6 +62,8 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         self.tableView.reloadData()
     }
     
+   
+    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         
         searchIsActive = true

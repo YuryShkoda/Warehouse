@@ -28,7 +28,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var newField: String = ""
     
     var manageField: String = ""
-    var fieldToSave: [String: [String]] = [:]
+    var fieldToSave: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,26 +37,29 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         NotificationCenter.default.addObserver(self, selector: #selector(createAlert(_:)), name: Notification.Name("createAlert"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(manageFields(_:)), name: NSNotification.Name("manageFields"), object: nil)
         
+        warehouse.getSettingsCD(refresh: nil)
+        
         if newField != "" {
             
-            warehouse.addField(fieldName: newField)
+            self.warehouse.saveSettingsCD(addData: newField)
             newField = ""
             
         } else if newName != "" {
         
-            warehouse.changeName(newName: newName)
+            warehouse.changeNameCD (newName: newName)
             newName = ""
         
         } else if curPass != "" && newPass != "" {
         
-            warehouse.changePassword(currentPassword: curPass, newPassword: newPass)
+            warehouse.changePasswordCD(currentPassword: curPass, newPassword: newPass)
             curPass = ""
             newPass = ""
             
         } else if fieldToSave.count != 0 {
             
-            warehouse.saveField(field: fieldToSave)
-            fieldToSave = [:]
+            warehouse.saveFieldCD(property: manageField,defaults: fieldToSave)
+            fieldToSave = []
+            manageField = ""
         }
     }
     
@@ -102,16 +105,16 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
+        
+//        print("section = \(warehouse.settings[section][0][0])")
         return warehouse.settings[section][0][0]
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-    
         return warehouse.settings.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return warehouse.settings[section][1].count
     }
     
@@ -122,7 +125,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             switch cell.tag {
             case 1:
                 self.placeHolders = warehouse.settingsPlaceHolders[indexPath.section][indexPath.row]
-                    
+                
                 if indexPath.row == 0 {
                     
                     self.isFirstFieldAnabled = false
@@ -130,7 +133,6 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.changeName = true
                     
                 } else {
-                    
                     self.isSecureEntry = true
                 }
                 
@@ -144,6 +146,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.createNewField = true
                 performSegue(withIdentifier: "changeSettingSegue", sender: nil)
             default:
+                warehouse.logOut()
                 performSegue(withIdentifier: "logOutSegue", sender: nil)
             }
         }

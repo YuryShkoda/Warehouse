@@ -13,6 +13,7 @@ import Parse
 class LoginVC: UIViewController, UITextFieldDelegate {
     
     var isLogin: Bool = true
+    var isFirstLoad: Bool = false
     
     @IBOutlet weak var accountNameTF: UITextField!
     @IBOutlet weak var warehouseNameTF: UITextField!
@@ -79,37 +80,70 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
         if readyForSegue {
             
-            
-            
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = appDelegate.persistentContainer.viewContext
             
             if isLogin {
                 
-                let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Users")
-                request.returnsObjectsAsFaults = false
-                //TODO: also need to check password
-                request.predicate = NSPredicate(format: "name = %@ AND password = %@", accountNameTF.text!, passwordTF.text!)
-                
-                do {
-                    let results = try context.fetch(request)
-                    if results.count > 0 {
-                        for result in results as! [NSManagedObject]{
-                            if let name = result.value(forKey: "name") as? String {
-                                print("\(name) logged in")
-                                self.performSegue(withIdentifier: "showSettingsSegue", sender: self)
-                            }
-                        }
-                    } else {
-                        
-                        alertLabel.text = "User not found, please try again"
-                        alertLabel.isHidden = false
-                    }
+                if let accountName = accountNameTF.text, let password = passwordTF.text, let warehouseName = warehouseNameTF.text {
                     
-                } catch  {
-                    print("Error while fetching users")
+                    let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Users")
+                    request.returnsObjectsAsFaults = false
+                    
+                    request.predicate = NSPredicate(format: "name = %@ AND password = %@ AND warehouseName = %@", argumentArray: [accountName, password, warehouseName])
+                    
+                    do {
+                        let results = try context.fetch(request)
+                        if results.count > 0 {
+                            for result in results as! [NSManagedObject]{
+                                if let name = result.value(forKey: "name") as? String {
+                                    
+                                    result.setValue(true, forKey: "isLoggedIn")
+                                    
+                                    do {
+                                        try context.save()
+                                        
+                                        print("\(name) logged in CoreData")
+//                                        self.performSegue(withIdentifier: "showSettingsSegue", sender: self)
+                                        self.performSegue(withIdentifier: "loginSegue", sender: self)
+                                    } catch {
+                                        print("error while changing logged in status")
+                                    }
+                                    
+                                    //TODO: need to determine when app will connect to Parse
+//                                    PFUser.logInWithUsername(inBackground: accountName, password: password, block: { (success, error) in
+//                                        if error != nil {
+//                                            
+//                                            let error = error as NSError?
+//                                            
+//                                            var displayErrorMessage = ""
+//                                            
+//                                            if let errorMessage = error?.userInfo["error"] as? String {
+//                                                
+//                                                displayErrorMessage = errorMessage
+//                                            }
+//                                            
+//                                            self.createAlert(title: "Connection Error", message: displayErrorMessage)
+//                                            
+//                                        } else {
+//                                            print("Logged in Parse")
+//                                            self.performSegue(withIdentifier: "showSettingsSegue", sender: self)
+//                                        }
+//                                    })
+                                }
+                                
+                                
+                            }
+                        } else {
+                            
+                            alertLabel.text = "User not found, please try again"
+                            alertLabel.isHidden = false
+                        }
+                        
+                    } catch  {
+                        print("Error while fetching users")
+                    }
                 }
-                
             } else {
                 
                 if let accountName = accountNameTF.text, let password = passwordTF.text, let warehouseName = warehouseNameTF.text {
@@ -118,7 +152,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                     let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Users")
                     request.returnsObjectsAsFaults = false
                     
-                    request.predicate = NSPredicate(format: "name = %@ AND warehouseName = %@", [accountName, warehouseName])
+                    request.predicate = NSPredicate(format: "name = %@ AND warehouseName = %@",argumentArray: [accountName, warehouseName])
                     
                     
                     do {
@@ -134,78 +168,108 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                             
                         } else {
                             
-                            let newUser = NSEntityDescription.insertNewObject(forEntityName: "Users", into: context)
+                            let user = PFUser()
                             
-                            newUser.setValue(accountName, forKey: "name")
-                            newUser.setValue(warehouseName, forKey: "warehouseName")
-                            newUser.setValue(password, forKey: "password")
+                            user.username = accountName
+                            user.password = password
                             
-                            do {
-                                try context.save()
+                            let acl = PFACL()
+                            
+                            acl.getPublicReadAccess = true
+                            acl.getPublicWriteAccess = true
+                            
+                            user.signUpInBackground(block: { (success, error) in
                                 
-                                let query = PFQuery(className: "iWarehouse_settings")
-                                
-                                query.whereKey("WarehouseName", equalTo: "iWarehouse_defaults")
-                                
-                                query.findObjectsInBackground(block: { (objects, error) in
+                                if error != nil {
+                                    let error = error as NSError?
                                     
-                                    if objects != nil {
+                                    var displayErrorMessage = ""
                                     
-                                        if let objects = objects {
+                                    if let errorMessage = error?.userInfo["error"] as? String {
+                                        
+                                        displayErrorMessage = errorMessage
+                                    }
+                                    
+                                    self.createAlert(title: "Error in a form", message: displayErrorMessage)
+                                    
+                                } else {
+                                    
+                                    let query = PFQuery(className: "iWarehouse_settings")
+                                    
+                                    query.whereKey("WarehouseName", equalTo: "iWarehouse_defaults")
+                                    
+                                    query.findObjectsInBackground(block: { (objects, error) in
+                                        
+                                        if objects != nil {
                                             
-                                            if objects.count > 0 {
+                                            if let objects = objects {
                                                 
-                                                for defaultSettings in objects {
+                                                if objects.count > 0 {
                                                     
-                                                    let placeholders = defaultSettings["Placeholders"]
-                                                    let settingsFields = defaultSettings["Settings"]
-                                                    let settingsToSave = NSEntityDescription.insertNewObject(forEntityName: "Settings", into: context)
-                                                    
-                                                    settingsToSave.setValue(placeholders, forKey: "placeholders")
-                                                    settingsToSave.setValue(settingsFields, forKey: "settingsFields")
-                                                    settingsToSave.setValue(warehouseName, forKey: "warehouseName")
-                                                    
-                                                    let propertyToSave = NSEntityDescription.insertNewObject(forEntityName: "Properties", into: context)
-                                                    
-                                                    propertyToSave.setValue("Location", forKey: "property")
-                                                    propertyToSave.setValue([], forKey: "defaults")
-                                                    propertyToSave.setValue(accountName, forKey: "warehouseName")
-                                                    
-                                                    let item = PFObject(className: "iWarehouse_settings")
-                                                    
-                                                    item["Placeholders"] = placeholders
-                                                    item["Settings"] = settingsFields
-                                                    item["WarehouseName"] = warehouseName
-                                                    item["Properties"] = ["Location": []]
-                                                    
-                                                    
-                                                    let acl = PFACL()
-                                                    
-                                                    acl.getPublicReadAccess = true
-                                                    acl.getPublicWriteAccess = true
-                                                    item.acl = acl
-                                                    
-                                                    item.saveInBackground(block: { (success, error) in
-                                                    
-                                                        if success {
-                                                            do {
-                                                                try context.save()
-                                                                print("default settings saved")
-                                                            } catch {
-                                                                print("error while saving default settings to CoreData")
+                                                    for defaultSettings in objects {
+                                                        
+                                                        let placeholders = defaultSettings["Placeholders"]
+                                                        let settingsFields = defaultSettings["Settings"]
+                                                        let settingsToSave = NSEntityDescription.insertNewObject(forEntityName: "Settings", into: context)
+                                                        
+                                                        settingsToSave.setValue(placeholders, forKey: "placeholders")
+                                                        settingsToSave.setValue(settingsFields, forKey: "settingsFields")
+                                                        settingsToSave.setValue(warehouseName, forKey: "warehouseName")
+                                                        
+                                                        let propertyToSave = NSEntityDescription.insertNewObject(forEntityName: "Properties", into: context)
+                                                        
+                                                        propertyToSave.setValue("Location", forKey: "property")
+                                                        propertyToSave.setValue([], forKey: "defaults")
+                                                        propertyToSave.setValue(accountName, forKey: "warehouseName")
+                                                        
+                                                        let item = PFObject(className: "iWarehouse_settings")
+                                                        
+                                                        item["Placeholders"] = placeholders
+                                                        item["Settings"] = settingsFields
+                                                        item["WarehouseName"] = warehouseName
+                                                        item["Properties"] = ["Location": []]
+                                                        
+                                                        
+                                                        let acl = PFACL()
+                                                        
+                                                        acl.getPublicReadAccess = true
+                                                        acl.getPublicWriteAccess = true
+                                                        item.acl = acl
+                                                        
+                                                        item.saveInBackground(block: { (success, error) in
+                                                            
+                                                            if success {
+                                                                
+                                                                let newUser = NSEntityDescription.insertNewObject(forEntityName: "Users", into: context)
+                                                                
+                                                                newUser.setValue(accountName, forKey: "name")
+                                                                newUser.setValue(warehouseName, forKey: "warehouseName")
+                                                                newUser.setValue(password, forKey: "password")
+                                                                newUser.setValue(true, forKey: "isLoggedIn")
+                                                                
+                                                                do {
+                                                                    try context.save()
+                                                                    print("default settings saved")
+                                                                    
+//                                                                    self.performSegue(withIdentifier: "showSettingsSegue", sender: self)
+//                                                                    warehouse.isFirstLoad = true
+                                                                    self.isFirstLoad = true
+                                                                    self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                                                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "firstLoad"), object: nil)
+                                                                } catch {
+                                                                    print("error while saving default settings to CoreData")
+                                                                }
+                                                            } else {
+                                                                print("error while saving default settings to Parse")
                                                             }
-                                                        } else {
-                                                            print("error while saving default settings to Parse")
-                                                        }
-                                                    })
+                                                        })
+                                                    }
                                                 }
                                             }
                                         }
-                                    }
-                                })
-                            } catch {
-                                //TODO: add error catching
-                            }
+                                    })
+                                }
+                            })
                         }
                     } catch {
                         //TODO: add error catching
@@ -218,7 +282,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                 alertLabel.isHidden = false
             }
         }
-        
     }
     
     override func viewDidLoad() {
@@ -239,6 +302,17 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
             secondPasswordTF.isHidden = true
             alertLabel.isHidden = true
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "loginSegue" {
+            
+            if isFirstLoad {
+                var tabBar = segue.destination as! UITabBarController
+                tabBar.selectedIndex = 1
+            }
         }
     }
     

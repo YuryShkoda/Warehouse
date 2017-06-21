@@ -82,7 +82,8 @@ class FieldVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIT
         if segue.identifier == "saveFieldSegue" {
             if let settingsVC = segue.destination as? SettingsVC {
                 
-                settingsVC.fieldToSave[parentFieldName] = childFields
+                settingsVC.manageField = parentFieldName
+                settingsVC.fieldToSave = childFields
             }
         }
     }
