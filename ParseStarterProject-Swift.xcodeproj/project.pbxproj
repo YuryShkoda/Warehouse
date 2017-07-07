@@ -15,7 +15,6 @@
 		04756ABB1EDA4FEA00D8E51A /* lock_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 04756ABA1EDA4FEA00D8E51A /* lock_icon.png */; };
 		047A51981EF1B2EA0020DA1B /* FieldVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A51971EF1B2EA0020DA1B /* FieldVC.swift */; };
 		047A51BB1EF385F80020DA1B /* iWarehouse.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 047A51B91EF385F80020DA1B /* iWarehouse.xcdatamodeld */; };
-		047A51DE1EF38E220020DA1B /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A51DD1EF38E220020DA1B /* TestVC.swift */; };
 		04813B281EDE11B500683AE1 /* WarehouseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04813B271EDE11B500683AE1 /* WarehouseData.swift */; };
 		048B05541EEBBA8C00D07397 /* ChangeSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B05531EEBBA8C00D07397 /* ChangeSettingsVC.swift */; };
 		0491D9611ED2774700142776 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0491D9601ED2774700142776 /* MapKit.framework */; };
@@ -43,7 +42,6 @@
 		04756ABA1EDA4FEA00D8E51A /* lock_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock_icon.png; sourceTree = "<group>"; };
 		047A51971EF1B2EA0020DA1B /* FieldVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldVC.swift; sourceTree = "<group>"; };
 		047A51BA1EF385F80020DA1B /* iWarehouse.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iWarehouse.xcdatamodel; sourceTree = "<group>"; };
-		047A51DD1EF38E220020DA1B /* TestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
 		04813B271EDE11B500683AE1 /* WarehouseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WarehouseData.swift; path = Model/WarehouseData.swift; sourceTree = "<group>"; };
 		048B05531EEBBA8C00D07397 /* ChangeSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeSettingsVC.swift; sourceTree = "<group>"; };
 		0491D9601ED2774700142776 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -144,7 +142,6 @@
 				04A453441EFB0795004A6C03 /* ItemVC.swift */,
 				047A51B91EF385F80020DA1B /* iWarehouse.xcdatamodeld */,
 				047A51971EF1B2EA0020DA1B /* FieldVC.swift */,
-				047A51DD1EF38E220020DA1B /* TestVC.swift */,
 				04756AB21ED9F36C00D8E51A /* SettingsVC.swift */,
 				048B05531EEBBA8C00D07397 /* ChangeSettingsVC.swift */,
 				04D313D11ED683C700E4D8C1 /* LoginVC.swift */,
@@ -273,7 +270,6 @@
 				047A51BB1EF385F80020DA1B /* iWarehouse.xcdatamodeld in Sources */,
 				04D4593D1F0FDF300089BED3 /* WarehouseItem.swift in Sources */,
 				04756AB31ED9F36C00D8E51A /* SettingsVC.swift in Sources */,
-				047A51DE1EF38E220020DA1B /* TestVC.swift in Sources */,
 				048B05541EEBBA8C00D07397 /* ChangeSettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
