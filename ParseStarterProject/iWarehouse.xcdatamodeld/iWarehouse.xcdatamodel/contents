@@ -16,11 +16,13 @@
         <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="warehouseName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Warehouse" representedClassName="Warehouse" syncable="YES" codeGenerationType="class"/>
+    <entity name="Warehouse" representedClassName="Warehouse" syncable="YES" codeGenerationType="class">
+        <attribute name="model" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Properties" positionX="232" positionY="-0" width="128" height="90"/>
         <element name="Settings" positionX="126" positionY="108" width="128" height="88"/>
         <element name="Users" positionX="70" positionY="-171" width="128" height="105"/>
-        <element name="Warehouse" positionX="-36" positionY="0" width="128" height="45"/>
+        <element name="Warehouse" positionX="-36" positionY="0" width="128" height="60"/>
     </elements>
 </model>

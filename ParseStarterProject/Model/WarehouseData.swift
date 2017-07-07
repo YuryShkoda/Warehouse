@@ -158,6 +158,17 @@ class WarehouseData {
                     do {
                         try context.save()
                         print("settings saved")
+                        let newProperty = NSEntityDescription.insertNewObject(forEntityName: "Properties", into: context)
+                        newProperty.setValue(addData, forKey: "property")
+                        newProperty.setValue([], forKey: "defaults")
+                        newProperty.setValue(self.name, forKey: "warehouseName")
+                        
+                        do {
+                            try context.save()
+                            print("new property saved")
+                        } catch {
+                            print("error while saving new property")
+                        }
                     } catch {
                         print("error while updating settings")
                     }
@@ -253,7 +264,7 @@ class WarehouseData {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        //TODO: stoped here
+        //TODO: stopped here
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Properties")
         request.predicate = NSPredicate(format: "property = %@", property)
         do {
@@ -569,18 +580,4 @@ class WarehouseData {
         
         PFUser.logOutInBackground()
     }
-}
-
-
-
-class ItemData {
-    
-    var parametrs = [[]]
-    
-    func addItem(){}
-    
-    func editItem(){}
-    
-    func deleteItem(){}
-
 }

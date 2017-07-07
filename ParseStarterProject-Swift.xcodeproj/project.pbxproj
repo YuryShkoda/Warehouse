@@ -14,13 +14,14 @@
 		04756AB31ED9F36C00D8E51A /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04756AB21ED9F36C00D8E51A /* SettingsVC.swift */; };
 		04756ABB1EDA4FEA00D8E51A /* lock_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 04756ABA1EDA4FEA00D8E51A /* lock_icon.png */; };
 		047A51981EF1B2EA0020DA1B /* FieldVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A51971EF1B2EA0020DA1B /* FieldVC.swift */; };
-		047A519A1EF2EDD50020DA1B /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A51991EF2EDD50020DA1B /* TestTableViewController.swift */; };
 		047A51BB1EF385F80020DA1B /* iWarehouse.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 047A51B91EF385F80020DA1B /* iWarehouse.xcdatamodeld */; };
 		047A51DE1EF38E220020DA1B /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A51DD1EF38E220020DA1B /* TestVC.swift */; };
 		04813B281EDE11B500683AE1 /* WarehouseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04813B271EDE11B500683AE1 /* WarehouseData.swift */; };
 		048B05541EEBBA8C00D07397 /* ChangeSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B05531EEBBA8C00D07397 /* ChangeSettingsVC.swift */; };
 		0491D9611ED2774700142776 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0491D9601ED2774700142776 /* MapKit.framework */; };
+		04A453451EFB0795004A6C03 /* ItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A453441EFB0795004A6C03 /* ItemVC.swift */; };
 		04D313D21ED683C700E4D8C1 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D313D11ED683C700E4D8C1 /* LoginVC.swift */; };
+		04D4593D1F0FDF300089BED3 /* WarehouseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D4593C1F0FDF300089BED3 /* WarehouseItem.swift */; };
 		814C3ACA1B69877600E307BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 814C3AC61B69877600E307BB /* Main.storyboard */; };
 		814C3ACB1B69877600E307BB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 814C3AC81B69877600E307BB /* Images.xcassets */; };
 		81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BA814A1A49DA1800E65899 /* AppDelegate.swift */; };
@@ -41,13 +42,14 @@
 		04756AB21ED9F36C00D8E51A /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		04756ABA1EDA4FEA00D8E51A /* lock_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock_icon.png; sourceTree = "<group>"; };
 		047A51971EF1B2EA0020DA1B /* FieldVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldVC.swift; sourceTree = "<group>"; };
-		047A51991EF2EDD50020DA1B /* TestTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
 		047A51BA1EF385F80020DA1B /* iWarehouse.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iWarehouse.xcdatamodel; sourceTree = "<group>"; };
 		047A51DD1EF38E220020DA1B /* TestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
 		04813B271EDE11B500683AE1 /* WarehouseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WarehouseData.swift; path = Model/WarehouseData.swift; sourceTree = "<group>"; };
 		048B05531EEBBA8C00D07397 /* ChangeSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeSettingsVC.swift; sourceTree = "<group>"; };
 		0491D9601ED2774700142776 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		04A453441EFB0795004A6C03 /* ItemVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemVC.swift; sourceTree = "<group>"; };
 		04D313D11ED683C700E4D8C1 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = ../LoginVC.swift; sourceTree = "<group>"; };
+		04D4593C1F0FDF300089BED3 /* WarehouseItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarehouseItem.swift; sourceTree = "<group>"; };
 		814C3AC71B69877600E307BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		814C3AC81B69877600E307BB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		814C3AC91B69877600E307BB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				04813B271EDE11B500683AE1 /* WarehouseData.swift */,
+				04D4593C1F0FDF300089BED3 /* WarehouseItem.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -138,8 +141,8 @@
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				81BA814C1A49DA1800E65899 /* ViewController.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
+				04A453441EFB0795004A6C03 /* ItemVC.swift */,
 				047A51B91EF385F80020DA1B /* iWarehouse.xcdatamodeld */,
-				047A51991EF2EDD50020DA1B /* TestTableViewController.swift */,
 				047A51971EF1B2EA0020DA1B /* FieldVC.swift */,
 				047A51DD1EF38E220020DA1B /* TestVC.swift */,
 				04756AB21ED9F36C00D8E51A /* SettingsVC.swift */,
@@ -265,9 +268,10 @@
 				047A51981EF1B2EA0020DA1B /* FieldVC.swift in Sources */,
 				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
 				04D313D21ED683C700E4D8C1 /* LoginVC.swift in Sources */,
-				047A519A1EF2EDD50020DA1B /* TestTableViewController.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
+				04A453451EFB0795004A6C03 /* ItemVC.swift in Sources */,
 				047A51BB1EF385F80020DA1B /* iWarehouse.xcdatamodeld in Sources */,
+				04D4593D1F0FDF300089BED3 /* WarehouseItem.swift in Sources */,
 				04756AB31ED9F36C00D8E51A /* SettingsVC.swift in Sources */,
 				047A51DE1EF38E220020DA1B /* TestVC.swift in Sources */,
 				048B05541EEBBA8C00D07397 /* ChangeSettingsVC.swift in Sources */,

@@ -244,7 +244,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                                                                 
                                                                 let propertyToSave = NSEntityDescription.insertNewObject(forEntityName: "Properties", into: context)
                                                                 
-                                                                propertyToSave.setValue("Location", forKey: "property")
+                                                                propertyToSave.setValue("Model", forKey: "property")
                                                                 propertyToSave.setValue([], forKey: "defaults")
                                                                 propertyToSave.setValue(accountName, forKey: "warehouseName")
                                                                 
@@ -253,7 +253,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                                                                 item["Placeholders"] = placeholders
                                                                 item["Settings"] = settingsFields
                                                                 item["WarehouseName"] = warehouseName
-                                                                item["Properties"] = ["Location": []]
+                                                                item["Properties"] = ["Model": []]
                                                                 
                                                                 
                                                                 let acl = PFACL()

@@ -6,6 +6,8 @@
 //  Copyright © 2017 Parse. All rights reserved.
 //
 
+//TODO: need to add deleting/editing of the fields
+
 import UIKit
 
 class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -104,9 +106,6 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        
-//        print("section = \(warehouse.settings[section][0][0])")
         return warehouse.settings[section][0][0]
     }
     
