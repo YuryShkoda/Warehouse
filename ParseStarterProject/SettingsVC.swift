@@ -70,7 +70,6 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         warehouse.getSettings(refresh: true)
     }
     
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "changeSettingSegue" {
             if let changeSettingsVC = segue.destination as? ChangeSettingsVC {

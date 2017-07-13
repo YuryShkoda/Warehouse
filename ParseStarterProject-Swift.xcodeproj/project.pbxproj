@@ -21,6 +21,7 @@
 		04A453451EFB0795004A6C03 /* ItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A453441EFB0795004A6C03 /* ItemVC.swift */; };
 		04D313D21ED683C700E4D8C1 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D313D11ED683C700E4D8C1 /* LoginVC.swift */; };
 		04D4593D1F0FDF300089BED3 /* WarehouseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D4593C1F0FDF300089BED3 /* WarehouseItem.swift */; };
+		04D4593F1F11566F0089BED3 /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D4593E1F11566F0089BED3 /* TestVC.swift */; };
 		814C3ACA1B69877600E307BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 814C3AC61B69877600E307BB /* Main.storyboard */; };
 		814C3ACB1B69877600E307BB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 814C3AC81B69877600E307BB /* Images.xcassets */; };
 		81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BA814A1A49DA1800E65899 /* AppDelegate.swift */; };
@@ -48,6 +49,7 @@
 		04A453441EFB0795004A6C03 /* ItemVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemVC.swift; sourceTree = "<group>"; };
 		04D313D11ED683C700E4D8C1 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = ../LoginVC.swift; sourceTree = "<group>"; };
 		04D4593C1F0FDF300089BED3 /* WarehouseItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarehouseItem.swift; sourceTree = "<group>"; };
+		04D4593E1F11566F0089BED3 /* TestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
 		814C3AC71B69877600E307BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		814C3AC81B69877600E307BB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		814C3AC91B69877600E307BB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				04756AB21ED9F36C00D8E51A /* SettingsVC.swift */,
 				048B05531EEBBA8C00D07397 /* ChangeSettingsVC.swift */,
 				04D313D11ED683C700E4D8C1 /* LoginVC.swift */,
+				04D4593E1F11566F0089BED3 /* TestVC.swift */,
 			);
 			path = ParseStarterProject;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				04813B281EDE11B500683AE1 /* WarehouseData.swift in Sources */,
 				047A51981EF1B2EA0020DA1B /* FieldVC.swift in Sources */,
 				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
+				04D4593F1F11566F0089BED3 /* TestVC.swift in Sources */,
 				04D313D21ED683C700E4D8C1 /* LoginVC.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
 				04A453451EFB0795004A6C03 /* ItemVC.swift in Sources */,

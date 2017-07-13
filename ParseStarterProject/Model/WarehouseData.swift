@@ -50,13 +50,6 @@ class WarehouseData {
         } catch {
             print("error while getting warehouse name")
         }
-        
-//        if let user = PFUser.current() {
-//            
-//            self.name = user.username!
-//        } else {
-//            self.name = "default"
-//        }
     }
     
     func getSettings(refresh: Bool?){
@@ -129,10 +122,56 @@ class WarehouseData {
         }
     }
     
+    func saveSettings(addData: String?){
+        
+        //FIXME: this method has to be refactored
+        
+        if settings.count == 0 {
+            getSettings(refresh: nil)
+        }
+        
+        let query = PFQuery(className: "Settings")
+        
+        query.whereKey("Warehouse", equalTo: self.name)
+        
+        query.findObjectsInBackground { (objects, error) in
+            
+            if let objects = objects {
+                
+                if objects.count == 0 {
+                    
+                    let item = PFObject(className: "Settings")
+                    
+                    item["Warehouse"] = self.name
+                    
+                    if let addData = addData { self.settings[1][1].insert(addData, at: 0) }
+                    
+                    item["Settings"] = self.settings
+                    
+                    item.saveInBackground()
+                    
+                } else {
+                    
+                    let object = objects[0]
+                    
+                    if let addData = addData {
+                        
+                        self.settings[1][1].insert(addData, at: 0)
+                        
+                    }
+                    
+                    object["Settings"] = self.settings
+                    
+                    object.saveInBackground()
+                }
+            }
+        }
+    }
+    
     func saveSettingsCD(addData: String?){
         
         //FIXME: no need to check settings.count
-        //FIXME: new field has to have index = 0
+        //FIXME: new field has to has index = 0
         if settings.count == 0 {
             getSettingsCD(refresh: nil)
         }
@@ -174,56 +213,8 @@ class WarehouseData {
                     }
                 }
             }
-            
         } catch {
             print("error while finding settings for current warehouse")
-        }
-    }
-    
-    func saveSettings(addData: String?){
-        
-        //FIXME: this method has to be refactored
-        
-        if settings.count == 0 {
-            getSettings(refresh: nil)
-        }
-    
-        let query = PFQuery(className: "Settings")
-        
-        query.whereKey("Warehouse", equalTo: self.name)
-        
-        query.findObjectsInBackground { (objects, error) in
-            
-            if let objects = objects {
-            
-                if objects.count == 0 {
-                
-                    let item = PFObject(className: "Settings")
-                    
-                    item["Warehouse"] = self.name
-                    
-                    if let addData = addData { self.settings[1][1].insert(addData, at: 0) }
-                    
-                    item["Settings"] = self.settings
-                    
-                    item.saveInBackground()
-                
-                } else {
-                
-                    let object = objects[0]
-                    
-                    if let addData = addData {
-                        
-                        self.settings[1][1].insert(addData, at: 0)
-                    
-                    }
-                            
-                    object["Settings"] = self.settings
-                    
-                    
-                    object.saveInBackground()
-                }
-            }
         }
     }
     
@@ -344,16 +335,7 @@ class WarehouseData {
     }
     
     func getCount() -> Int {
-    
-        if self.list.count == 0 {
-            
-            return 0
-        
-        } else {
-        
-            return 1
-        }
-    
+        if self.list.count == 0 { return 0 } else { return 1 }
     }
     
     func getData() {

@@ -97,14 +97,11 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                         if results.count > 0 {
                             for result in results as! [NSManagedObject]{
                                 if let name = result.value(forKey: "name") as? String {
-                                    
                                     result.setValue(true, forKey: "isLoggedIn")
                                     
                                     do {
                                         try context.save()
-                                        
                                         print("\(name) logged in CoreData")
-//                                        self.performSegue(withIdentifier: "showSettingsSegue", sender: self)
                                         self.performSegue(withIdentifier: "loginSegue", sender: self)
                                     } catch {
                                         print("error while changing logged in status")
@@ -131,8 +128,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
 //                                        }
 //                                    })
                                 }
-                                
-                                
                             }
                         } else {
                             
@@ -147,29 +142,25 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             } else {
                 
                 if let accountName = accountNameTF.text, let password = passwordTF.text, let warehouseName = warehouseNameTF.text {
-                
                     
                     let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Users")
                     request.returnsObjectsAsFaults = false
                     
                     request.predicate = NSPredicate(format: "name = %@ AND warehouseName = %@",argumentArray: [accountName, warehouseName])
                     
-                    
                     do {
                         let results = try context.fetch(request)
                         if results.count > 0 {
                             for result in results as! [NSManagedObject] {
-                                
                                 if let name = result.value(forKey: "name") as? String {
                                     self.alertLabel.text = "User \(name) already exists in \(warehouseName)"
                                     self.alertLabel.isHidden = false
                                 }
                             }
-                            
                         } else {
-                            
                             let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Settings")
                             request.returnsObjectsAsFaults = false
+                            
                             request.predicate = NSPredicate(format: "warehouseName = %@", warehouseName)
                             
                             do {
@@ -185,7 +176,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                                     
                                     do {
                                         try context.save()
-                                        print("new user saved")
+                                        print("new user \(accountName) saved")
                                         self.isFirstLoad = true
                                         self.performSegue(withIdentifier: "loginSegue", sender: nil)
                                     } catch {
@@ -242,22 +233,19 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                                                                 settingsToSave.setValue(settingsFields, forKey: "settingsFields")
                                                                 settingsToSave.setValue(warehouseName, forKey: "warehouseName")
                                                                 
-                                                                let propertyToSave = NSEntityDescription.insertNewObject(forEntityName: "Properties", into: context)
+//                                                                let propertyToSave = NSEntityDescription.insertNewObject(forEntityName: "Properties", into: context)
                                                                 
-                                                                propertyToSave.setValue("Model", forKey: "property")
-                                                                propertyToSave.setValue([], forKey: "defaults")
-                                                                propertyToSave.setValue(accountName, forKey: "warehouseName")
+//                                                                propertyToSave.setValue("Model", forKey: "property")
+//                                                                propertyToSave.setValue([], forKey: "defaults")
+//                                                                propertyToSave.setValue(accountName, forKey: "warehouseName")
                                                                 
                                                                 let item = PFObject(className: "iWarehouse_settings")
                                                                 
                                                                 item["Placeholders"] = placeholders
                                                                 item["Settings"] = settingsFields
                                                                 item["WarehouseName"] = warehouseName
-                                                                item["Properties"] = ["Model": []]
-                                                                
-                                                                
+//                                                                item["Properties"] = ["Model": []]
                                                                 let acl = PFACL()
-                                                                
                                                                 acl.getPublicReadAccess = true
                                                                 acl.getPublicWriteAccess = true
                                                                 item.acl = acl
@@ -265,7 +253,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                                                                 item.saveInBackground(block: { (success, error) in
                                                                     
                                                                     if success {
-                                                                        
                                                                         let newUser = NSEntityDescription.insertNewObject(forEntityName: "Users", into: context)
                                                                         
                                                                         newUser.setValue(accountName, forKey: "name")
@@ -292,13 +279,10 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                                             })
                                         }
                                     })
-                                    
                                 }
                             } catch {
                                 print("errror while finding settings for warehouse")
                             }
-                            
-                            
                         }
                     } catch {
                         //TODO: add error catching
@@ -328,7 +312,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         secondPasswordTF.layer.borderColor = UIColor.red.cgColor
         
         if isLogin {
-        
             secondPasswordTF.isHidden = true
             alertLabel.isHidden = true
         }
@@ -337,9 +320,8 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "loginSegue" {
-            
             if isFirstLoad {
-                var tabBar = segue.destination as! UITabBarController
+                let tabBar = segue.destination as! UITabBarController
                 tabBar.selectedIndex = 1
             }
         }
