@@ -73,7 +73,6 @@
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="addEdit:" destination="GMY-4d-OF8" eventType="touchUpInside" id="K0P-Tq-yWx"/>
-                                                            <action selector="addOrEdit:" destination="UiK-bu-34O" eventType="touchUpInside" id="KS8-aD-Rz2"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -164,85 +163,96 @@
                         <outlet property="settingsTable" destination="yhu-ba-KQ1" id="f8U-MP-QMA"/>
                         <segue destination="Fdv-a9-fTS" kind="show" identifier="changeSettingSegue" id="WwR-Ig-Pl0"/>
                         <segue destination="nn6-rs-LCe" kind="presentation" identifier="logOutSegue" id="BXw-b2-ulp"/>
-                        <segue destination="UiK-bu-34O" kind="show" identifier="manageFieldsSegue" id="qPq-R8-SgE"/>
+                        <segue destination="uQJ-iI-ni8" kind="show" identifier="configSynchronizationSegue" id="LKY-Qi-9JF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Py0-9q-Ckh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3174" y="2586"/>
+            <point key="canvasLocation" x="2963" y="2047"/>
         </scene>
-        <!--FieldVC-->
-        <scene sceneID="OKo-9k-Y9O">
+        <!--Synchronization-->
+        <scene sceneID="N9f-gH-BXF">
             <objects>
-                <viewController id="UiK-bu-34O" customClass="FieldVC" customModule="ParseStarterProject_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Synchronization" id="uQJ-iI-ni8" customClass="SynchronizationTVC" customModule="ParseStarterProject_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="0UW-EV-HrL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="H9N-bd-oAH">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H9N-bd-oAH" id="MNr-tP-lTj">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="uQJ-iI-ni8" id="wBp-Bp-GCx"/>
+                            <outlet property="delegate" destination="uQJ-iI-ni8" id="I7i-LA-Bej"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="l2M-rM-RYt"/>
+                    <connections>
+                        <segue destination="209-1g-UW2" kind="show" id="azE-75-T1O"/>
+                        <segue destination="JCu-wK-G4U" kind="show" identifier="configSynchronizationSegue" id="rag-hd-8wO"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zja-ZR-0Zb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3998" y="1481"/>
+        </scene>
+        <!--Edit Synchronization-->
+        <scene sceneID="oNv-DB-3um">
+            <objects>
+                <viewController title="Edit Synchronization" id="JCu-wK-G4U" customClass="EditSynchronizationVC" customModule="ParseStarterProject_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="R22-aC-rFu"/>
-                        <viewControllerLayoutGuide type="bottom" id="vhI-Up-fcQ"/>
+                        <viewControllerLayoutGuide type="top" id="dQq-ei-AiS"/>
+                        <viewControllerLayoutGuide type="bottom" id="IXs-Uk-cUc"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="tEA-LD-5kM">
+                    <view key="view" contentMode="scaleToFill" id="bzM-8e-PFC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BcQ-bv-Tho">
-                                <rect key="frame" x="0.0" y="72" width="320" height="282"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="fnw-rJ-w6T">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fnw-rJ-w6T" id="6CJ-OL-5cz">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="UiK-bu-34O" id="qCF-NL-jZ5"/>
-                                    <outlet property="delegate" destination="UiK-bu-34O" id="6aL-CC-PhT"/>
-                                </connections>
-                            </tableView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" highlighted="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please enter field name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hrc-rX-Bmo">
-                                <rect key="frame" x="16" y="378" width="288" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="https://..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V1M-A1-mya">
+                                <rect key="frame" x="16" y="45" width="288" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DV7-oX-ITP">
-                                <rect key="frame" x="105" y="428" width="110" height="39"/>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tic-DW-o8Z">
+                                <rect key="frame" x="0.0" y="124" width="320" height="123"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Update " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7O-3T-L6Y">
+                                <rect key="frame" x="16" y="83" width="288" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.42352941176470588" green="0.7686274509803922" blue="0.77254901960784317" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Add field">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="addOrEdit:" destination="UiK-bu-34O" eventType="touchUpInside" id="CDu-sd-kAD"/>
-                                </connections>
-                            </button>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="6sb-Q0-Mhd">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Le1-Iz-LmI">
+                    <navigationItem key="navigationItem" title="Synchronization" id="YYR-Dg-A7X">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="j2g-as-GG2">
                             <connections>
-                                <segue destination="209-1g-UW2" kind="show" identifier="saveFieldSegue" id="2oI-Q0-Ony"/>
+                                <action selector="save:" destination="JCu-wK-G4U" id="fqv-ym-irl"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="addEditButton" destination="DV7-oX-ITP" id="dDC-sm-OzN"/>
-                        <outlet property="fieldsTable" destination="BcQ-bv-Tho" id="8NV-ma-6Cd"/>
-                        <outlet property="textField" destination="Hrc-rX-Bmo" id="maI-Gf-NoO"/>
+                        <outlet property="label" destination="M7O-3T-L6Y" id="dyn-LL-rk3"/>
+                        <outlet property="picker" destination="Tic-DW-o8Z" id="CU3-Ge-DXc"/>
+                        <outlet property="textField" destination="V1M-A1-mya" id="AMY-tG-Ag6"/>
+                        <segue destination="uQJ-iI-ni8" kind="show" identifier="backToSynchronization" id="LXU-0P-mN9"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2ze-mS-OVY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9uW-OW-wAq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3174.375" y="1797.8873239436621"/>
+            <point key="canvasLocation" x="4910.625" y="1480.9859154929577"/>
         </scene>
         <!--Change SettingsVC-->
         <scene sceneID="osW-dX-sMj">
@@ -282,7 +292,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BZU-2y-tRZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4173.75" y="2585.9154929577467"/>
+            <point key="canvasLocation" x="3999" y="2703"/>
         </scene>
         <!--Search-->
         <scene sceneID="bts-N6-Pzk">
@@ -508,7 +518,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NFI-bs-8gR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2126.25" y="2369.3661971830984"/>
+            <point key="canvasLocation" x="1577" y="2020"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yZC-hL-voK">
@@ -538,7 +548,8 @@
         <image name="search_button.png" width="35" height="35"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Nws-0g-AVy"/>
+        <segue reference="azE-75-T1O"/>
+        <segue reference="LXU-0P-mN9"/>
         <segue reference="C48-hm-vwK"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -11,8 +11,6 @@ import UIKit
 import CoreData
 import Parse
 
-//TODO: add field
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

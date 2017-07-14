@@ -37,7 +37,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         NotificationCenter.default.addObserver(self, selector: #selector(refreshSettings), name: Notification.Name("refreshSettings"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(createAlert(_:)), name: Notification.Name("createAlert"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(manageFields(_:)), name: NSNotification.Name("manageFields"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(manageFields(_:)), name: NSNotification.Name("manageFields"), object: nil)
         
         warehouse.getSettingsCD(refresh: nil)
         
@@ -80,17 +80,18 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 changeSettingsVC.createNewField = self.createNewField
                 changeSettingsVC.changeName = self.changeName
             }
-        } else if segue.identifier == "manageFieldsSegue" {
-        
-            if let fieldVC = segue.destination as? FieldVC {
-            
-                fieldVC.parentFieldName = self.manageField
-                
-                if self.warehouse.settingsFields[manageField] != nil {
-                    fieldVC.childFields = self.warehouse.settingsFields[manageField]!
-                } 
-            }
         }
+//        else if segue.identifier == "manageFieldsSegue" {
+//        
+//            if let fieldVC = segue.destination as? FieldVC {
+//            
+//                fieldVC.parentFieldName = self.manageField
+//                
+//                if self.warehouse.settingsFields[manageField] != nil {
+//                    fieldVC.childFields = self.warehouse.settingsFields[manageField]!
+//                } 
+//            }
+//        }
     }
     
     func refreshSettings(){
@@ -98,14 +99,18 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         settingsTable.reloadData()
     }
     
-    func manageFields(_ notification: NSNotification){
-    
-        performSegue(withIdentifier: "manageFieldsSegue", sender: nil)
-        
-    }
+//    func manageFields(_ notification: NSNotification){
+//    
+//        performSegue(withIdentifier: "manageFieldsSegue", sender: nil)
+//        
+//    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return warehouse.settings[section][0][0]
+        if warehouse.settings[section][0][0] != " " {
+            return warehouse.settings[section][0][0]
+        } else {
+            return ""
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -137,8 +142,8 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 performSegue(withIdentifier: "changeSettingSegue", sender: nil)
             case 2:
                 
-                if let fieldName = cell.textLabel?.text { self.manageField = fieldName }
-                performSegue(withIdentifier: "manageFieldsSegue", sender: nil)
+//                if let fieldName = cell.textLabel?.text { self.manageField = fieldName }
+                performSegue(withIdentifier: "configSynchronizationSegue", sender: nil)
             case 3:
                 self.placeHolders = warehouse.settingsPlaceHolders[indexPath.section][0]
                 self.createNewField = true
@@ -176,6 +181,10 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
  
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return " "
     }
     
     func createAlert(_ notification: NSNotification) {
