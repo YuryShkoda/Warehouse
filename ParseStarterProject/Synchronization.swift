@@ -16,7 +16,42 @@ struct Synchronization {
     
     func synchronize () -> Bool {
         
+        //MARK: getting json
+        let url = URL(string: "http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=08e64df2d3f3bc0822de1f0fc22fcb2d")!
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if error != nil {
+                print(error)
+            } else {
+                
+                if let urlContent = data {
+                    
+                    do {
+                        let jsonResult = try JSONSerialization.jsonObject(with: urlContent, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject
+                        
+                        print(jsonResult)
+                        //print(jsonResult["name"])
+                        
+                        //MARK: Saving new items
+                        //FIXME: need to get array of items from json
+//                        if let items = jsonResult["items"] as? NSArray {
+//                            let date = NSDate()
+//                            for item in items {
+//                                let item = item as! NSDictionary
+//                                let newItem = Item(id: item["id"], model: item["model"], location: item["location"], updated: date, synchronized: false, warehouse: user.warehouseName)
+//                            }
+//                        }
+                        
+                        if let description = ((jsonResult["weather"] as? NSArray)?[0] as? NSDictionary)?["description"] as? String {
+                            print(description)
+                        }
+                    } catch {
+                        print("JSON Processing Failed")
+                    }
+                }
+            }
+        }
         
+        task.resume()
         
         return true
     }

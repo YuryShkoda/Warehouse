@@ -23,6 +23,9 @@ class EditSynchronizationVC: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         if let url = textField.text {
             synchronization.editSynchronization(url: url, perDay: pickerIndexToPerDay(pickerIndex: picker.selectedRow(inComponent: 0)), fromServer: fromServer)
+            
+            synchronization.synchronize()
+            
             performSegue(withIdentifier: "backToSynchronization", sender: nil)
         }
     }
