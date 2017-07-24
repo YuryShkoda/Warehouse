@@ -71,4 +71,30 @@ struct Item {
         }
         
     }
+    
+    func initWithId(id: String) -> Item {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let contex = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Warehouse")
+        request.returnsObjectsAsFaults = false
+        
+        request.predicate = NSPredicate(format: "id = %@ AND warehouse = %@", [id,warehouse])
+        
+        do {
+            let results = try contex.fetch(request)
+            if results.count > 0 {
+                for result in results as! [NSManagedObject]{
+                    
+                    //TODO: need to convert String to NSDate
+                    
+//                    let item = Item(id: result.value(forKey: "id") as? String, model: result.value(forKey: "model") as? String, location: result.value(forKey: "location") as? String, updated: NSDate., synchronized: <#T##Bool#>, warehouse: <#T##String#>)
+                }
+            }
+        } catch let Error {
+            print(Error)
+        }
+        
+        
+        return self
+    }
 }

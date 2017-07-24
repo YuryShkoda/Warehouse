@@ -20,6 +20,10 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     var subList = false
     
+    var searchList = [String]()
+    var searchListIds = [String]()
+    var filteredSearchList = [String]()
+    
     var list      = [String]()
     var filtered  = [String]()
     var ids       = [String]()
@@ -35,19 +39,15 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     @IBAction func serchCancelled(_ sender: Any) {
        
         searchIsActive = false
-        
         view.endEditing(true)
-        
         searchBar.text = ""
-        
         tableMode = "Model"
- 
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        warehouse.getData()
+        prepareSearchingList()
         
         let cancelButtonAttributes: NSDictionary = [NSForegroundColorAttributeName: UIColor.white]
         
@@ -57,12 +57,20 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
     }
     
-    func refreshList () {
+    func prepareSearchingList() -> Void {
+        let items = warehouse.getAllItems()
+        for (key, value) in items {
+            searchList.append(value)
+            searchListIds.append(key)
+        }
         
         self.tableView.reloadData()
     }
     
-   
+    func refreshList () {
+        
+        self.tableView.reloadData()
+    }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         
@@ -86,7 +94,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        filtered = list.filter({ (text) -> Bool in
+        filteredSearchList = searchList.filter({ (text) -> Bool in
             
             let tmp: NSString = text as NSString
             
@@ -95,7 +103,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             return range.location != NSNotFound
         })
         
-        if filtered.count != 0 {
+        if filteredSearchList.count != 0 {
         
             searchIsActive = true
         
@@ -104,7 +112,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             searchIsActive = false
         }
         
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -117,18 +125,16 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        //FIXME: if has to check searchIsActive
-        
-        let count = warehouse.getCount()
-            
-        return count
+        if searchIsActive { return filteredSearchList.count } else { return searchList.count }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         //warehouse.getData(cellInd: nil, indexOfSuper: indexPath.row)
         
-        self.tableView.reloadData()
+//        self.tableView.reloadData()
+        
+        performSegue(withIdentifier: "toItemSegue", sender: nil)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -136,6 +142,8 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
         //cell.textLabel?.text = warehouse.getData(cellInd: indexPath.row, indexOfSuper: nil)
+        
+        if searchIsActive { cell.textLabel?.text = filteredSearchList[indexPath.row] } else { cell.textLabel?.text = searchList[indexPath.row] }
         
         return cell
     }

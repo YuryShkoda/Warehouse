@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1sK-ZQ-NSf">
-                                <rect key="frame" x="0.0" y="69" width="320" height="438"/>
+                                <rect key="frame" x="0.0" y="25" width="320" height="482"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="i3S-eH-ykR">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="417"/>
@@ -349,6 +349,7 @@
                     <connections>
                         <outlet property="searchBar" destination="yrC-Jk-CO4" id="3ER-5w-PXy"/>
                         <outlet property="tableView" destination="VZz-1T-L6y" id="v3H-vY-LJZ"/>
+                        <segue destination="GMY-4d-OF8" kind="show" identifier="toItemSegue" id="eVu-z5-XNN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rYP-cX-Sk8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -548,8 +549,9 @@
         <image name="search_button.png" width="35" height="35"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="azE-75-T1O"/>
         <segue reference="LXU-0P-mN9"/>
+        <segue reference="azE-75-T1O"/>
         <segue reference="C48-hm-vwK"/>
+        <segue reference="eVu-z5-XNN"/>
     </inferredMetricsTieBreakers>
 </document>

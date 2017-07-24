@@ -562,4 +562,29 @@ class WarehouseData {
         
         PFUser.logOutInBackground()
     }
+    
+    func getAllItems() -> [String: String] {
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Warehouse")
+        request.returnsObjectsAsFaults = false
+        request.predicate = NSPredicate(format: "warehouse = %@", name)
+        
+        var items = [String: String]()
+        
+        do {
+            let results = try context.fetch(request)
+            if results.count > 0 {
+                for result in results as! [NSManagedObject] {
+                    items[result.value(forKey: "id") as! String] = result.value(forKey: "model") as! String
+                }
+                return items
+            }
+        } catch let Error {
+            print(Error)
+        }
+        return items
+    }
+    
 }
